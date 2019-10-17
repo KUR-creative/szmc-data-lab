@@ -27,6 +27,19 @@
 
 ;; data manager (this) -> learner(snet,cnet) -> evaluator (?)
 
+
+;; prototype 1
+
+;; Create db first. (with simple schema)
+
+;; Save image-only, image-named(old dset) directory.
+
+;; Get all image paths.
+
+;; Create image hash for ID<hash, h, w>
+;; Save to DB with metadata: <hash, source, height, width, path, format, file_size>
+;; `source` is 'where are images from'. In this case, source="old-dataset"
+
 (comment 
 (def db
   {:classname   "org.sqlite.JDBC"
@@ -47,7 +60,6 @@
          (println (.getMessage e)))))
 
 (create-db)
-)
 
 (def db
   {:classname   "org.sqlite.JDBC"
@@ -65,6 +77,4 @@
 ;(j/query db (sql/format 
 
 (j/query db (sql/format (-> (h/select :%COUNT.*) (h/from :data))))
-
-
-
+)
