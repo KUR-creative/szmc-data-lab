@@ -1,6 +1,7 @@
 (ns szmc-data.imageio-lab
   (:refer-clojure :exclude [read])
-  (:require [clojure.java.io :as io])
+  (:require [clojure.java.io :as io]
+            [clojure.reflect :as r])
   (:import ;[org.imgscalr Scalr Scalr$Method Scalr$Mode]
            [java.awt Image Frame Label Dimension Graphics]
            [javax.swing JLabel JPanel ImageIcon]
@@ -18,15 +19,16 @@
 (def img (read "a.png"))
 (println img)
 
-(println (Double. 1.2))
-
+;(println (r/reflect img))
+(println '_width (.getWidth img))
+(println 'height (.getHeight img))
 
 ;(comment 
 (def frame
      (doto (Frame. "Close Operation Frame")
            (.add (JLabel. (ImageIcon. img)))
            ;(.add (Label. "Welcom in Roseindia.net Tutorial" (Label/CENTER)))
-           (.setSize (Dimension. 400 400))
+           (.setSize (Dimension. (.getWidth img) (.getHeight img)))
            (.setVisible true)
            (.addWindowListener
              (proxy [WindowAdapter] []
